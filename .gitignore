@@ -1,0 +1,17 @@
+
+.DS_Store
+
+.idea/
+.gradle/
+gradle/
+build/
+
+gradlew.bat
+
+gradlew
+
+settings.gradle.kts
+
+gradle.properties
+
+build.gradle.kts
