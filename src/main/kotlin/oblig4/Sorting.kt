@@ -1,3 +1,5 @@
+package oblig4
+
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.log
@@ -311,10 +313,10 @@ fun sortingMain() {
 
     } else if (testType == 2) {
         when (sortType) {
-            "i" -> Sorting.estimate(Sorting::insertion)
-            "q" -> Sorting.estimate(Sorting::quick)
-            "m" -> Sorting.estimate(Sorting::merge)
-            "r" -> Sorting.estimate(Sorting::radix)
+            "i" -> Sorting.estimate(Sorting.Companion::insertion)
+            "q" -> Sorting.estimate(Sorting.Companion::quick)
+            "m" -> Sorting.estimate(Sorting.Companion::merge)
+            "r" -> Sorting.estimate(Sorting.Companion::radix)
         }
     }
 }

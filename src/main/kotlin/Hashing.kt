@@ -1,6 +1,0 @@
-class Hashing {
-}
-
-fun hashingMain() {
-
-}

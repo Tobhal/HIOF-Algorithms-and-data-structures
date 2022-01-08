@@ -1,4 +1,4 @@
-// Oblig 1
+package oblig1
 
 import java.util.*
 import kotlin.collections.ArrayList
