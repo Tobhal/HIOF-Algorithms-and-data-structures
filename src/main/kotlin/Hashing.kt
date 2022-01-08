@@ -1,0 +1,6 @@
+class Hashing {
+}
+
+fun hashingMain() {
+
+}
