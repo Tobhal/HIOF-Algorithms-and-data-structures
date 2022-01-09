@@ -1,15 +1,20 @@
 package oblig5
 
 import java.io.IOException
-import java.util.Scanner
+import java.util.*
 import kotlin.math.abs
 import kotlin.system.exitProcess
 
-class HashLinear(
+class HashNode(
+    var data: String,
+    var next: HashNode? = null,
+)
+
+class HashChained(
     private var hashLength: Int
 ) {
-    private var hashTable = Array<String?>(hashLength) {_ -> null}
-    var numProbes = 0
+    private var hashTable = Array<HashNode?>(hashLength) {_ -> null}
+    var numCollisions = 0
         get() = field
 
     fun loadFactor(): Float = hashTable.size / hashLength.toFloat()
@@ -20,39 +25,24 @@ class HashLinear(
 
     fun insert(s: String) {
         val h = hash(s)
-        var next = h
-        while (hashTable[next] != null) {
-            numProbes++
-            next = (next + 1) % hashLength
-            if (next == h) {
-                System.err.println("\nHash table is full, canceling")
-                exitProcess(0)
-            }
-        }
-
-        hashTable[next] = s
+        if (hashTable[h] != null)
+            numCollisions++
+        hashTable[h] = HashNode(s, hashTable[h])
     }
 
     fun search(s: String): Boolean {
-        val h = hash(s)
-        var next = h
+        var hN = hashTable[hash(s)]
 
-        while (hashTable[next] != null) {
-            if (hashTable[next]?.compareTo(s) == 0)
+        while (hN != null) {
+            if (hN.data.compareTo(s) == 0)
                 return true
-
-            next = (next + 1) % hashLength
-
-            if (next == h)
-                return false
+            hN = hN.next
         }
-
         return false
     }
-
 }
 
-fun hashLinerMain(args: Array<String>) {
+fun hashChainedMain(args: Array<String>) {
     val hashLength: Int
     val input = Scanner(System.`in`)
 
@@ -67,7 +57,7 @@ fun hashLinerMain(args: Array<String>) {
         exitProcess(0)
     }
 
-    val hL = HashLinear(hashLength)
+    val hL = HashChained(hashLength)
 
     while (input.hasNext()) {
         hL.insert(input.nextLine())
@@ -76,7 +66,7 @@ fun hashLinerMain(args: Array<String>) {
     println("Hash length : $hashLength")
     println("Elements    : ${hL.numData()}")
     println("Load factor : %5.3f".format(hL.loadFactor()))
-    println("Probes      : ${hL.numProbes}")
+    println("Probes      : ${hL.numCollisions}")
 
     var s = "Volkswagen Karmann Ghia"
     if (hL.search(s))
