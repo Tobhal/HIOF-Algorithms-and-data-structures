@@ -36,9 +36,18 @@ class HashChained(
         while (hN != null) {
             if (hN.data.compareTo(s) == 0)
                 return true
+            println("D-> ${hN.data} - h: ${hash(hN.data)}")
             hN = hN.next
         }
         return false
+    }
+
+    fun print() {
+        var hN = hashTable[0]
+
+        while (hN != null) {
+            println("D-> ${hN.data} - h: ${hash(hN.data)}")
+        }
     }
 }
 
@@ -59,14 +68,22 @@ fun hashChainedMain(args: Array<String>) {
 
     val hL = HashChained(hashLength)
 
-    while (input.hasNext()) {
-        hL.insert(input.nextLine())
+    var readInput = true
+    while (readInput) {
+        print("Inn: ")
+        val str = readln()
+        if (str == "")
+            readInput = false
+        else
+            hL.insert(str)
     }
 
     println("Hash length : $hashLength")
     println("Elements    : ${hL.numData()}")
     println("Load factor : %5.3f".format(hL.loadFactor()))
     println("Probes      : ${hL.numCollisions}")
+
+    hL.print()
 
     var s = "Volkswagen Karmann Ghia"
     if (hL.search(s))
