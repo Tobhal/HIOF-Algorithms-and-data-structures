@@ -9,8 +9,8 @@ open class EasyGraph(
     val fileName: String,
 ) {
     var n = 0
-    var neighbour = arrayListOf(arrayListOf<Boolean>())
-    var data = ArrayList<String>()
+    lateinit var neighbour: Array<BooleanArray>
+    lateinit var data: Array<String>
 
     init {
         read()
@@ -21,16 +21,18 @@ open class EasyGraph(
             val inn = Scanner(File(fileName))
 
             n = inn.nextInt()
+            neighbour = Array(n) {BooleanArray(n)}
+            data = Array(n) {_ -> ""}
             for (i in 0 until n)
                 for (j in 0 until n)
                     neighbour[i][j] = (i == j)
 
-            for (i in 0 .. n) {
+            for (i in 0  until  n) {
                 val nodeNum = inn.nextInt()
                 data[nodeNum] = inn.next()
 
                 val numNeighbour = inn.nextInt()
-                for (j in 0 .. numNeighbour) {
+                for (j in 0  until  numNeighbour) {
                     val neighbourNum = inn.nextInt()
                     neighbour[nodeNum][neighbourNum] = true
                 }
