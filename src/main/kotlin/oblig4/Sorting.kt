@@ -39,8 +39,8 @@ class Sorting {
         //      Using 3 parameters for all sorting algorithms because it is easier for me
         @JvmStatic fun estimate(sorting: KFunction3<Array<Int>, Int, Int, Unit>) {
             // Print the first line
-            println("    n   |" +
-                    "         T(ms)           |" +
+            println("   n   |" +
+                    "         T(ms)          |" +
                     "          T/n            |" +
                     "         T/n^2           |" +
                     "         T/n^3           |" +
@@ -85,10 +85,10 @@ class Sorting {
                 val Tn3 = T/(n * n * n)
                 aTn3.add(Tn3)
 
-                val logN = T/log(n.toDouble(), 10.0)
+                val logN = T/log(n.toDouble(), 2.0)
                 alogN.add(logN)
 
-                val nLogN = T/n * log(n.toDouble(), 10.0)
+                val nLogN = T/n * log(n.toDouble(), 2.0)
                 aNLogN.add(nLogN)
 
                 // Print each round
