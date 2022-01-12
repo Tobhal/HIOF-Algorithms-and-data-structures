@@ -123,9 +123,6 @@ fun hashLinerMain(args: Array<String>) {
 
     val hL = HashLinear(hashLength)
 
-    hL.insert2("Kake")
-    hL.insert2("kake")
-
     var readInput = true
     while (readInput) {
         print("Inn: ")
@@ -133,7 +130,7 @@ fun hashLinerMain(args: Array<String>) {
         if (str == "")
             readInput = false
         else
-            hL.insert2(str)
+            hL.insert(str)
     }
 
     println("Hash length : $hashLength")

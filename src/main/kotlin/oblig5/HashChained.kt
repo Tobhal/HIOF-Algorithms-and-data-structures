@@ -30,23 +30,57 @@ class HashChained(
         hashTable[h] = HashNode(s, hashTable[h])
     }
 
+    /*
+    Oppgave 3: Delete data
+     */
+    fun delete(s: String) {
+        // Loop true the hash table
+        for (i in hashTable.indices) {
+            // Set the next HashNode to be the first element in the hashTable
+            var current = hashTable[i]
+            // This hashNode equals s
+            if (current != null && current.data == s) {
+                // Sett the first element to the next element
+                hashTable[i] = current.next
+            }
+
+            // While current is not null
+            while (current != null) {
+                // If the current next data equals s
+                if (current.next != null && current.next!!.data == s) {
+                    // Sett the current next to current next's next
+                    current.next = current.next!!.next
+                    // Done with removing
+                    return
+                }
+                // Sett current to the next HashNode
+                current = current.next
+            }
+        }
+    }
+
     fun search(s: String): Boolean {
         var hN = hashTable[hash(s)]
 
         while (hN != null) {
             if (hN.data.compareTo(s) == 0)
                 return true
-            println("D-> ${hN.data} - h: ${hash(hN.data)}")
             hN = hN.next
         }
         return false
     }
 
+    // Simple function to print the data stored
+    // Also used to se how the data is laid out
     fun print() {
-        var hN = hashTable[0]
-
-        while (hN != null) {
-            println("D-> ${hN.data} - h: ${hash(hN.data)}")
+        for (hN in hashTable) {
+            var next = hN
+            print("[")
+            while (next != null) {
+                print("${next.data} -> ")
+                next = next.next
+            }
+            println("null]")
         }
     }
 }
@@ -68,6 +102,7 @@ fun hashChainedMain(args: Array<String>) {
 
     val hL = HashChained(hashLength)
 
+    // Add elements to the hash chain
     var readInput = true
     while (readInput) {
         print("Inn: ")
@@ -76,6 +111,19 @@ fun hashChainedMain(args: Array<String>) {
             readInput = false
         else
             hL.insert(str)
+    }
+
+    hL.print()
+
+    // Remove elements from the hash chain
+    readInput = true
+    while (readInput) {
+        print("Delete: ")
+        val str = readln()
+        if (str == "")
+            readInput = false
+        else
+            hL.delete(str)
     }
 
     println("Hash length : $hashLength")
